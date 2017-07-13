@@ -4,13 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Jogo_de_Dados
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class Menu : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+
+        private Dado dado;
 
         public Menu()
         {
@@ -27,6 +26,7 @@ namespace Jogo_de_Dados
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
         }
 
         protected override void UnloadContent()
@@ -36,8 +36,11 @@ namespace Jogo_de_Dados
 
         protected override void Update(GameTime gameTime)
         {
+            float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
 
             base.Update(gameTime);
         }
@@ -45,8 +48,9 @@ namespace Jogo_de_Dados
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
 
+            spriteBatch.End();
             base.Draw(gameTime);
         }
-    }
 }

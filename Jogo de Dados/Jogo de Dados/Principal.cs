@@ -6,7 +6,7 @@ namespace Jogo_de_Dados
     /// <summary>
     /// The main class.
     /// </summary>
-    public static class Main
+    public static class Principal
     {
         /// <summary>
         /// The main entry point for the application.
