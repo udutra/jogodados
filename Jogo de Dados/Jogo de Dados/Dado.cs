@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Jogo_de_Dados
 {
@@ -15,13 +16,9 @@ namespace Jogo_de_Dados
         private int timeSinceLastFrame { get; set; }
         private int millisecondsPerFrame { get; set; }
 
-        public Dado()
-        {
-            currentFrame = 0;
-            totalFrames = 0;
-        }
+        private int valorFace;
 
-        public Dado(Texture2D texture, int rows, int columns)
+       public Dado(Texture2D texture, int rows, int columns)
         {
             Texture = texture;
             Rows = rows;
@@ -30,6 +27,7 @@ namespace Jogo_de_Dados
             totalFrames = Rows * Columns;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 50;
+            valorFace = 0;
         }
         
         public void Update(GameTime gameTime)
@@ -41,20 +39,53 @@ namespace Jogo_de_Dados
                 
                 //increment current frame
                 currentFrame++;
+                valorFace++;
                 timeSinceLastFrame = 0;
                 if(currentFrame == totalFrames)
                 {
                     currentFrame = 0;
+                    valorFace = 0;
                 }
             }
         }
 
-        public void Draw(GameTime gameTime)
+        public void Update2(int sort)
         {
+            if(sort == currentFrame)
+            {
 
+            }
+            else if (sort > currentFrame)
+            {
+                currentFrame++;
+            }
+            else
+            {
+                currentFrame--;
+            }
         }
 
 
+
+        public void Draw(SpriteBatch spritebatch, Vector2 location)
+        {
+            int width = Texture.Width / Columns;
+            int height = Texture.Height / Rows;
+            int row = (int)((float)currentFrame / Columns);
+            int column = currentFrame % Columns;
+
+            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
+
+            spritebatch.Begin();
+            spritebatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            spritebatch.End();
+        }
+
+        public int getValorFace()
+        {
+            return valorFace;
+        }
 
 
     }
